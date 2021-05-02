@@ -31,7 +31,7 @@ env:
 
 script:
   - flake8 socialnetwork
-  - cd network
+  - cd socialnetwork
   - coverage run --source='.' manage.py test
 
 after_succes:
