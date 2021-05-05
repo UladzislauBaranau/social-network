@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils.translation import gettext as _
 
 from .forms import LoginForm
 
@@ -21,7 +22,7 @@ def login_view(request):
                 else:
                     return HttpResponse('Disabled account')
             else:
-                messages.error(request, 'The entered data is incorrect')
+                messages.error(request, _('The entered data is incorrect'))
 
     context = {
         'form': form,

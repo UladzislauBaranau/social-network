@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load i18n %}
 
-{% block title %}Log In or Sign Up{% endblock title %}
+{% block title %}
+{% translate 'Log In or Sign Up' %}
+{% endblock title %}
 
 {% block content %}
 <div class="row justify-content-center mt-5">
   <div class="col-md-4 text-center">
-    <h1 class="h2 mb-4 fw-normal">Please log in</h1>
+    <h1 class="h2 mb-4 fw-normal">{% translate 'Please log in' %}</h1>
     <div class="form-group">
       <form method="POST" action="">
         {% csrf_token %}
@@ -20,11 +22,11 @@
         <div class="alert alert-danger mb-3" role="alert">{{ message }}.</div>
         {% endfor %}
         <div class="mb-3">
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Log In</button>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">{% translate 'Log In' %}</button>
         </div>
         <a href="#">{% translate 'Forgot your password?' %}</a>
         <hr class="my-3">
-        <a class="w-100 btn btn-lg btn-success" role="button" href="#">Register</a>
+        <a class="w-100 btn btn-lg btn-success" role="button" href="#">{% translate 'Register' %}</a>
       </form>
     </div>
   </div>
