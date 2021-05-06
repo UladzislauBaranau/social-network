@@ -8,10 +8,9 @@
 {% block content %}
 <div class="row justify-content-center mt-5">
   <div class="col-md-4 text-center">
-    <h1 class="h2 mb-4 fw-normal">{% translate 'Please log in' %}</h1>
-    <div class="form-group">
-      <form method="POST" action="">
-        {% csrf_token %}
+    <h2 class="mb-4 fw-normal">{% translate 'Please log in' %}</h2>
+    <form method="POST">
+      {% csrf_token %}
         <div class="mb-3">
           <input type="text" class="form-control" name="username" placeholder="{{ form.username.label }}" required>
         </div>
@@ -19,16 +18,15 @@
           <input type="password" class="form-control" name="password" placeholder="{{ form.password.label }}" required>
         </div>
         {% for message in messages %}
-        <div class="alert alert-danger mb-3" role="alert">{{ message }}.</div>
+          <div class="alert alert-danger mb-3" role="alert">{{ message }}.</div>
         {% endfor %}
         <div class="mb-3">
           <button class="w-100 btn btn-lg btn-primary" type="submit">{% translate 'Log In' %}</button>
         </div>
-        <a href="#">{% translate 'Forgot your password?' %}</a>
+        <a href="{% url 'reset_password' %}">{% translate 'Forgot your password?' %}</a>
         <hr class="my-3">
         <a class="w-100 btn btn-lg btn-success" role="button" href="#">{% translate 'Register' %}</a>
-      </form>
-    </div>
+    </form>
   </div>
 </div>
 {% endblock content %}
