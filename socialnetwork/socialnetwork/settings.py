@@ -108,6 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#substituting-a-custom-user-model
 AUTH_USER_MODEL = 'profiles.Profile'
 
+# Custom Authentication
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/
+
+AUTHENTICATION_BACKENDS = [
+    'profiles.backends.EmailPhoneAuthBackend',
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
