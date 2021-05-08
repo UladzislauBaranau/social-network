@@ -7,3 +7,4 @@ flake8-variables-names==0.0.4
 flake8-import-order==0.18.1
 coverage==5.5
 codecov==2.1.12
+django-widget-tweaks==1.4.8
