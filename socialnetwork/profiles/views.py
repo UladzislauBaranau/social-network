@@ -4,7 +4,22 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import gettext as _
 
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('The profile has been successfully created'))
+    else:
+        form = RegisterForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'profiles/register.html', context)
 
 
 def login_view(request):

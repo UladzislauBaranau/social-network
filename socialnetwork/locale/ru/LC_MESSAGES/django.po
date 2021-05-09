@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-06 20:11+0000\n"
+"POT-Creation-Date: 2021-05-09 17:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,55 +21,89 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: profiles/forms.py:15
+msgid "First name"
+msgstr "Имя"
+
+#: profiles/forms.py:16
+msgid "Last name"
+msgstr "Фамилия"
+
+#: profiles/forms.py:17
+msgid "Email"
+msgstr "Электронный адрес"
+
+#: profiles/forms.py:18
+msgid "Birth date YYYY-MM-DD"
+msgstr "Дата рождения ГГГГ-ММ-ДД"
+
+#: profiles/forms.py:27
+msgid "Invalid first name."
+msgstr "Неверное имя."
+
+#: profiles/forms.py:33
+msgid "Invalid last name."
+msgstr "Неверная фамилия."
+
+#: profiles/forms.py:38
 msgid "Username, Email or Phone"
 msgstr "Имя пользователя, эл. адрес или номер телефона"
 
-#: profiles/forms.py:16
+#: profiles/forms.py:39
 msgid "Password"
 msgstr "Пароль"
 
-#: profiles/models.py:12
+#: profiles/models.py:8
+msgid "Male"
+msgstr "Мужчина"
+
+#: profiles/models.py:9
+msgid "Female"
+msgstr "Женщина"
+
+#: profiles/models.py:11
 msgid "Tell about yourself..."
 msgstr "Расскажите немного о себе..."
 
-#: profiles/models.py:13
+#: profiles/models.py:12
 msgid "Country"
 msgstr "Страна"
 
-#: profiles/models.py:14
+#: profiles/models.py:13
 msgid "City"
 msgstr "Город"
 
-#: profiles/models.py:15
+#: profiles/models.py:14
 msgid "Phone"
 msgstr "Номер телефона"
 
-#: profiles/models.py:16
+#: profiles/models.py:15
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: profiles/models.py:17
+#: profiles/models.py:16
 msgid "Gender"
 msgstr "Пол"
 
-#: profiles/templates/profiles/login.html:5
+#: profiles/templates/profiles/login.html:6
 msgid "Log In or Sign Up"
 msgstr "Выполните вход или зарегистируйтесь"
 
-#: profiles/templates/profiles/login.html:11
+#: profiles/templates/profiles/login.html:12
 msgid "Please log in"
 msgstr "Войдите в свой профиль"
 
-#: profiles/templates/profiles/login.html:24
+#: profiles/templates/profiles/login.html:27
 #: profiles/templates/profiles/password_reset_complete.html:14
 msgid "Log In"
 msgstr "Войти"
 
-#: profiles/templates/profiles/login.html:26
+#: profiles/templates/profiles/login.html:29
 msgid "Forgot your password?"
 msgstr "Забыли пароль?"
 
-#: profiles/templates/profiles/login.html:28
+#: profiles/templates/profiles/login.html:31
+#: profiles/templates/profiles/register.html:6
+#: profiles/templates/profiles/register.html:12
 msgid "Register"
 msgstr "Регистрация"
 
@@ -83,7 +117,9 @@ msgstr "Сброс Пароля"
 msgid ""
 "Enter your email address below and we’ll email instructions for setting a "
 "new one."
-msgstr "Введите свой адрес электронной почты ниже, и мы вышлем вам инструкции по настройке нового."
+msgstr ""
+"Введите свой адрес электронной почты ниже, и мы вышлем вам инструкции по "
+"настройке нового."
 
 #: profiles/templates/profiles/password_reset_complete.html:5
 #: profiles/templates/profiles/password_reset_complete.html:11
@@ -92,7 +128,9 @@ msgstr "Сброс пароля завершен"
 
 #: profiles/templates/profiles/password_reset_complete.html:12
 msgid "Your new password has been set. You may go ahead and log in now."
-msgstr "Ваш новый пароль был установлен. Вы можете пойти дальше и войти в систему прямо сейчас."
+msgstr ""
+"Ваш новый пароль был установлен. Вы можете пойти дальше и войти в систему "
+"прямо сейчас."
 
 #: profiles/templates/profiles/password_reset_confirm.html:5
 msgid "Password reset confirm"
@@ -106,7 +144,9 @@ msgstr "Введите новый пароль"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "currently."
-msgstr "Пожалуйста, введите свой новый пароль дважды, чтобы мы могли подтвердить, что вы ввели его в данный момент."
+msgstr ""
+"Пожалуйста, введите свой новый пароль дважды, чтобы мы могли подтвердить, "
+"что вы ввели его в данный момент."
 
 #: profiles/templates/profiles/password_reset_done.html:5
 msgid "Password reset done"
@@ -117,25 +157,46 @@ msgid ""
 "We’ve emailed you instructions for setting your password if an account "
 "exists with the email you entered.You should receive them shortly."
 msgstr ""
-"Мы отправили вам по электронной почте инструкции по установке пароля, если существует учетная запись с"
-"указанным вами электронным адрессом. Вы должны получить их в ближайшее время."
+"Мы отправили вам по электронной почте инструкции по установке пароля, если "
+"существует учетная запись суказанным вами электронным адрессом. Вы должны "
+"получить их в ближайшее время."
 
 #: profiles/templates/profiles/password_reset_done.html:13
 msgid ""
 "If you don’t receive an email, please make sure you’ve entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
-"Если вы не получили электронное письмо, пожалуйста, убедитесь, что вы ввели адрес, "
-"на который зарегистрировались, и проверьте папку со спамом. "
+"Если вы не получили электронное письмо, пожалуйста, убедитесь, что вы ввели "
+"адрес, на который зарегистрировались, и проверьте папку со спамом. "
 
-#: profiles/views.py:25
+#: profiles/templates/profiles/register.html:16
+msgid "Please"
+msgstr "Пожалуйста"
+
+#: profiles/templates/profiles/register.html:16
+msgid "log in"
+msgstr "войдите в свой профиль"
+
+#: profiles/templates/profiles/register.html:16
+msgid "to continue"
+msgstr ",чтобы продолжить"
+
+#: profiles/templates/profiles/register.html:101
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+#: profiles/views.py:15
+msgid "The profile has been successfully created"
+msgstr "Профиль был успешно создан"
+
+#: profiles/views.py:40
 msgid "The entered data is incorrect"
 msgstr "Введённые данные неверны"
 
-#: socialnetwork/settings.py:128
+#: socialnetwork/settings.py:136
 msgid "English"
 msgstr "Английский"
 
-#: socialnetwork/settings.py:129
+#: socialnetwork/settings.py:137
 msgid "Russian"
 msgstr "Русский"
