@@ -3,11 +3,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-# Create your models here.
 class Profile(AbstractUser):
     GENDER_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
+        ('M', _('Male')),
+        ('F', _('Female')),
     ]
     bio = models.TextField(default=_("Tell about yourself..."), max_length=200)
     country = models.CharField(_("Country"), max_length=100, blank=True)
