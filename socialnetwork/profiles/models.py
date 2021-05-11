@@ -8,6 +8,9 @@ class Profile(AbstractUser):
         ('M', _('Male')),
         ('F', _('Female')),
     ]
+    avatar = models.ImageField(upload_to='uploads/profile_avatars',
+                               default='uploads/profile_avatars/default_avatar.png',
+                               blank=True)
     bio = models.TextField(default=_("Tell about yourself..."), max_length=200)
     country = models.CharField(_("Country"), max_length=100, blank=True)
     city = models.CharField(_("City"), max_length=100, blank=True)
