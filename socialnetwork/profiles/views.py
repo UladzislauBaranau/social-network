@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
@@ -44,6 +44,11 @@ def login_view(request):
         'form': form,
     }
     return render(request, 'profiles/login.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 def user_profile_view(request):
