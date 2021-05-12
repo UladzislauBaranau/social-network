@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 
 from .forms import LoginForm, RegisterForm
+from .models import Profile
 
 
 def register_view(request):
@@ -33,7 +34,7 @@ def login_view(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponse('You profile')
+                    return redirect('user_profile')
                 else:
                     return HttpResponse('Disabled account')
             else:
@@ -43,3 +44,12 @@ def login_view(request):
         'form': form,
     }
     return render(request, 'profiles/login.html', context)
+
+
+def user_profile_view(request):
+    profile = Profile.objects.get(id=request.user.id)
+
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'profiles/user_profile.html', context)
