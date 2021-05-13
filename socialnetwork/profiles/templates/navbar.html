@@ -1,0 +1,34 @@
+{% load i18n %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <div class="col-1"></div>
+    <span class="navbar-brand">Social Network</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="{% translate 'Search' %}" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">{% translate 'Find' %}</button>
+      </form>
+      {% if user.is_authenticated %}
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          {{ user.username }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item fw-light" href="{% url 'user_profile' %}">{% translate 'My profile' %}</a></li>
+          <li><a class="dropdown-item fw-light" href="#">{% translate 'Edit profile' %}</a></li>
+          <li><a class="dropdown-item fw-light" href="#">{% translate 'Security' %}</a></li>
+          <li><a class="dropdown-item fw-light" href="{% url 'logout' %}">{% translate 'Sign Out' %}</a></li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-1"></div>
+  </div>
+</nav>
