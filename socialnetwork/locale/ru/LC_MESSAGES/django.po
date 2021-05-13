@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-09 17:54+0000\n"
+"POT-Creation-Date: 2021-05-13 16:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,29 +60,53 @@ msgstr "Мужчина"
 msgid "Female"
 msgstr "Женщина"
 
-#: profiles/models.py:11
+#: profiles/models.py:14
 msgid "Tell about yourself..."
 msgstr "Расскажите немного о себе..."
 
-#: profiles/models.py:12
+#: profiles/models.py:15
 msgid "Country"
 msgstr "Страна"
 
-#: profiles/models.py:13
+#: profiles/models.py:16
 msgid "City"
 msgstr "Город"
 
-#: profiles/models.py:14
+#: profiles/models.py:17 profiles/templates/profiles/user_profile.html:52
 msgid "Phone"
 msgstr "Номер телефона"
 
-#: profiles/models.py:15
+#: profiles/models.py:18 profiles/templates/profiles/user_profile.html:48
 msgid "Birth date"
 msgstr "Дата рождения"
 
-#: profiles/models.py:16
+#: profiles/models.py:19
 msgid "Gender"
 msgstr "Пол"
+
+#: profiles/templates/navbar.html:14
+msgid "Search"
+msgstr "Найти"
+
+#: profiles/templates/navbar.html:15
+msgid "Find"
+msgstr "Поиск"
+
+#: profiles/templates/navbar.html:24
+msgid "Profile"
+msgstr "Мой профиль"
+
+#: profiles/templates/navbar.html:25
+msgid "Edit profile"
+msgstr "Обновить профиль"
+
+#: profiles/templates/navbar.html:26
+msgid "Security"
+msgstr "Безопасность"
+
+#: profiles/templates/navbar.html:27
+msgid "Sign Out"
+msgstr "Выйти"
 
 #: profiles/templates/profiles/login.html:6
 msgid "Log In or Sign Up"
@@ -185,11 +209,29 @@ msgstr ",чтобы продолжить"
 msgid "Sign Up"
 msgstr "Зарегистрироваться"
 
-#: profiles/views.py:15
+#: profiles/templates/profiles/user_profile.html:6
+msgid "My Profile"
+msgstr "Мой профиль"
+
+#: profiles/templates/profiles/user_profile.html:15
+msgid "My profile"
+msgstr "Мой профиль"
+
+#: profiles/templates/profiles/user_profile.html:16
+msgid "Friends"
+msgstr "Друзья"
+
+#: profiles/templates/profiles/user_profile.html:40
+#: profiles/templates/profiles/user_profile.html:42
+#: profiles/templates/profiles/user_profile.html:44
+msgid "Location"
+msgstr "Местоположение"
+
+#: profiles/views.py:16
 msgid "The profile has been successfully created"
 msgstr "Профиль был успешно создан"
 
-#: profiles/views.py:40
+#: profiles/views.py:41
 msgid "The entered data is incorrect"
 msgstr "Введённые данные неверны"
 
