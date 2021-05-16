@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 
-from .forms import LoginForm, RegisterForm
+from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
 from .models import Profile
 
 
@@ -53,8 +53,33 @@ def logout_view(request):
 
 def user_profile_view(request):
     profile = Profile.objects.get(id=request.user.id)
+    form = EditAvatarUsernameBioForm(instance=request.user)
+
+    if request.method == 'POST':
+        form = EditAvatarUsernameBioForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _('Your profile has been updated'))
 
     context = {
         'profile': profile,
+        'form': form,
     }
     return render(request, 'profiles/user_profile.html', context)
+
+
+def edit_profile_view(request):
+    form = EditProfileForm(instance=request.user)
+    confirm = False
+
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            confirm = True
+
+    context = {
+        'form': form,
+        'confirm': confirm,
+    }
+    return render(request, 'profiles/edit_profile.html', context)

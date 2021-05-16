@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+{% translate 'Edit Profile' %}
+{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-4">
+    <h3 class="mb-4 fw-normal text-center">{% translate 'Edit Profile'%}</h3>
+
+    {% if confirm %}
+      <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        {% translate 'Your' %} <a href="{% url 'user_profile' %}" class="alert-link">{% translate 'profile' %}</a> {% translate 'has been updated' %}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+
+    <div class="form-group">
+      <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="mb-1">{% translate 'Username' %}</p>
+        <input type="text" class="form-control fw-light mb-2" name="username" value="{{ user.username }}" required>
+
+        <div class="row g-3 mb-2">
+          <div class="col">
+            <p class="mb-1">{% translate 'First name' %}</p>
+            <input type="text" class="form-control fw-light" name="first_name" value="{{ user.first_name }}">
+            {% for error in form.first_name.errors %}
+              <p class="text-danger mb-0">{{ error }}</p>
+            {% endfor %}
+          </div>
+          <div class="col">
+            <p class="mb-1">{% translate 'Last name' %}</p>
+            <input type="text" class="form-control fw-light" name="last_name" value="{{ user.last_name }}">
+            {% for error in form.last_name.errors %}
+              <p class="text-danger mb-0">{{ error }}</p>
+            {% endfor %}
+          </div>
+        </div>
+
+        <p class="mb-1">{% translate 'Bio' %}</p>
+        {% if user.bio %}
+          <textarea class="form-control fw-light mb-2" name="bio">{{ user.bio }}</textarea>
+        {% else %}
+          <textarea class="form-control fw-light mb-2" name="bio">{% translate 'Tell about yourself...' %}</textarea>
+        {% endif %}
+
+        <div class="row g-3 mb-2">
+          <div class="col">
+            <p class="mb-1">{% translate 'Country' %}</p>
+            <input type="text" class="form-control fw-light" name="country" value="{{ user.country }}">
+          </div>
+          <div class="col">
+            <p class="mb-1">{% translate 'City' %}</p>
+            <input type="text" class="form-control fw-light" name="city" value="{{ user.city }}">
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <p class="mb-1">{% translate 'Email' %}</p>
+          <input type="text" class="form-control fw-light" name="email" value="{{ user.email }}" required>
+          {% for error in form.email.errors %}
+            <p class="text-danger mb-0">{{ error }}</p>
+          {% endfor %}
+        </div>
+
+        <p class="mb-1">{% translate 'Phone' %}</p>
+        <input type="text" class="form-control fw-light mb-2" name="phone" value="{{ user.phone }}">
+        {% for error in form.phone.errors %}
+          <p class="text-danger mb-0">{{ error }}</p>
+        {% endfor %}
+
+        <hr class="my-3">
+        <div class="mb-3">
+          <button class="w-100 btn btn-lg btn-primary" type="submit">{% translate 'Update' %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

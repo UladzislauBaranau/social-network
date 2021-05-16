@@ -18,38 +18,88 @@
     </div>
     <div class="col">
       <div class="card-body shadow-sm holder-bottom">
-        <div class="row">
 
+        {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            {{ message }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+
+        <div class="row">
           <div class="col">
-            <img src="{{ profile.avatar.url }}" width="200" height="200">
+            <img src="{{ profile.avatar.url }}" class="rounded mx-auto d-block mb-2" width="200" height="200">
+            <!-- Button trigger modal -->
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+                      data-bs-target="#updateProfileModal">
+                {% translate 'Update' %}
+              </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <p class="fs-5 modal-title">{% translate 'Update profile' %}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                      <div class="col">
+                        <p class="text-center"><img src="{{ profile.avatar.url }}" class="text-center mb-2" width="200" height="200"></p>
+                        <p class="mb-2">{{ form.avatar }}</p>
+                        <p class="mb-1">{% translate 'Username' %}</p>
+                        <input type="text" class="form-control fw-light mb-2" name="username" value="{{ user.username }}" required>
+
+                        <p class="mb-1">{% translate 'Bio' %}</p>
+                        {% if user.bio %}
+                          <textarea class="form-control fw-light mb-2" name="bio">{{ user.bio }}</textarea>
+                        {% else %}
+                          <textarea class="form-control fw-light mb-2" name="bio">{% translate 'Tell about yourself...' %}</textarea>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{% translate 'Close' %}</button>
+                      <button type="submit" class="btn btn-success">{% translate 'Save changes' %}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="col-8">
             {% if profile.first_name and profile.last_name %}
-            <p class="fs-4 mb-1">{{ profile.first_name }} {{ profile.last_name }}</p>
+              <p class="fs-4 mb-1">{{ profile.first_name }} {{ profile.last_name }}</p>
             {% else %}
-            <p class="fs-4">{{ profile.username }}</p>
+              <p class="fs-4">{{ profile.username }}</p>
             {% endif %}
 
             {% if profile.bio %}
-            <p class="text-muted fw-light">{{ profile.bio }} </p>
+              <p class="text-muted fw-light">{{ profile.bio }} </p>
             {% endif %}
             <hr class="my-3">
 
             {% if profile.country and profile.city %}
-            <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.city }}, {{ profile.country }}</p>
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.city }}, {{ profile.country }}</p>
             {% elif profile.country %}
-            <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.country }}</p>
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.country }}</p>
             {% elif profile.city %}
-            <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.city }}</p>
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ profile.city }}</p>
             {% endif %}
 
             {% if profile.birth_date %}
-            <p class="fw-light mb-2">{% translate 'Birth date' %}: {{ profile.birth_date }}</p>
+              <p class="fw-light mb-2">{% translate 'Birth date' %}: {{ profile.birth_date }}</p>
             {% endif %}
 
             {% if profile.phone %}
-            <p class="fw-light mb-2">{% translate 'Phone' %}: {{ profile.phone }}</p>
+              <p class="fw-light mb-2">{% translate 'Phone' %}: {{ profile.phone }}</p>
             {% endif %}
           </div>
         </div>

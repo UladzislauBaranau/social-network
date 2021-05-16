@@ -22,7 +22,7 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><a class="dropdown-item fw-light" href="{% url 'user_profile' %}">{% translate 'My profile' %}</a></li>
-          <li><a class="dropdown-item fw-light" href="#">{% translate 'Edit profile' %}</a></li>
+          <li><a class="dropdown-item fw-light" href="{% url 'edit_profile' %}">{% translate 'Edit profile' %}</a></li>
           <li><a class="dropdown-item fw-light" href="#">{% translate 'Security' %}</a></li>
           <li><a class="dropdown-item fw-light" href="{% url 'logout' %}">{% translate 'Sign Out' %}</a></li>
         </ul>

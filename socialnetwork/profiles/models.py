@@ -11,7 +11,7 @@ class Profile(AbstractUser):
     avatar = models.ImageField(upload_to='uploads/profile_avatars',
                                default='uploads/profile_avatars/default_avatar.png',
                                blank=True)
-    bio = models.TextField(default=_("Tell about yourself..."), max_length=200)
+    bio = models.TextField(default=_("Tell about yourself..."), max_length=200, blank=True)
     country = models.CharField(_("Country"), max_length=100, blank=True)
     city = models.CharField(_("City"), max_length=100, blank=True)
     phone = models.CharField(_("Phone"), max_length=50, blank=True)
