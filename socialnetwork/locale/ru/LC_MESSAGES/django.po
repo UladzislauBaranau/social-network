@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-13 16:45+0000\n"
+"POT-Creation-Date: 2021-05-16 17:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: profiles/forms.py:15
+#: profiles/forms.py:15 profiles/templates/profiles/edit_profile.html:28
 msgid "First name"
 msgstr "Имя"
 
-#: profiles/forms.py:16
+#: profiles/forms.py:16 profiles/templates/profiles/edit_profile.html:32
 msgid "Last name"
 msgstr "Фамилия"
 
-#: profiles/forms.py:17
+#: profiles/forms.py:17 profiles/templates/profiles/edit_profile.html:55
 msgid "Email"
 msgstr "Электронный адрес"
 
@@ -60,23 +60,25 @@ msgstr "Мужчина"
 msgid "Female"
 msgstr "Женщина"
 
-#: profiles/models.py:14
+#: profiles/models.py:14 profiles/templates/profiles/edit_profile.html:41
+#: profiles/templates/profiles/user_profile.html:62
 msgid "Tell about yourself..."
 msgstr "Расскажите немного о себе..."
 
-#: profiles/models.py:15
+#: profiles/models.py:15 profiles/templates/profiles/edit_profile.html:46
 msgid "Country"
 msgstr "Страна"
 
-#: profiles/models.py:16
+#: profiles/models.py:16 profiles/templates/profiles/edit_profile.html:50
 msgid "City"
 msgstr "Город"
 
-#: profiles/models.py:17 profiles/templates/profiles/user_profile.html:52
+#: profiles/models.py:17 profiles/templates/profiles/edit_profile.html:58
+#: profiles/templates/profiles/user_profile.html:102
 msgid "Phone"
 msgstr "Номер телефона"
 
-#: profiles/models.py:18 profiles/templates/profiles/user_profile.html:48
+#: profiles/models.py:18 profiles/templates/profiles/user_profile.html:98
 msgid "Birth date"
 msgstr "Дата рождения"
 
@@ -93,7 +95,8 @@ msgid "Find"
 msgstr "Поиск"
 
 #: profiles/templates/navbar.html:24
-msgid "Profile"
+#: profiles/templates/profiles/user_profile.html:15
+msgid "My profile"
 msgstr "Мой профиль"
 
 #: profiles/templates/navbar.html:25
@@ -107,6 +110,38 @@ msgstr "Безопасность"
 #: profiles/templates/navbar.html:27
 msgid "Sign Out"
 msgstr "Выйти"
+
+#: profiles/templates/profiles/edit_profile.html:5
+#: profiles/templates/profiles/edit_profile.html:11
+msgid "Edit Profile"
+msgstr "Обновить профиль"
+
+#: profiles/templates/profiles/edit_profile.html:15
+msgid "Your"
+msgstr "Ваш"
+
+#: profiles/templates/profiles/edit_profile.html:15
+msgid "profile"
+msgstr "профиль"
+
+#: profiles/templates/profiles/edit_profile.html:15
+msgid "has been updated"
+msgstr "был успешно обновлен"
+
+#: profiles/templates/profiles/edit_profile.html:23
+#: profiles/templates/profiles/user_profile.html:55
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: profiles/templates/profiles/edit_profile.html:37
+#: profiles/templates/profiles/user_profile.html:58
+msgid "Bio"
+msgstr "О себе"
+
+#: profiles/templates/profiles/edit_profile.html:63
+#: profiles/templates/profiles/user_profile.html:36
+msgid "Update"
+msgstr "Обновить"
 
 #: profiles/templates/profiles/login.html:6
 msgid "Log In or Sign Up"
@@ -213,17 +248,25 @@ msgstr "Зарегистрироваться"
 msgid "My Profile"
 msgstr "Мой профиль"
 
-#: profiles/templates/profiles/user_profile.html:15
-msgid "My profile"
-msgstr "Мой профиль"
-
 #: profiles/templates/profiles/user_profile.html:16
 msgid "Friends"
 msgstr "Друзья"
 
-#: profiles/templates/profiles/user_profile.html:40
-#: profiles/templates/profiles/user_profile.html:42
-#: profiles/templates/profiles/user_profile.html:44
+#: profiles/templates/profiles/user_profile.html:45
+msgid "Update profile"
+msgstr "Обновить профиль"
+
+#: profiles/templates/profiles/user_profile.html:68
+msgid "Close"
+msgstr "Закрыть"
+
+#: profiles/templates/profiles/user_profile.html:69
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+#: profiles/templates/profiles/user_profile.html:90
+#: profiles/templates/profiles/user_profile.html:92
+#: profiles/templates/profiles/user_profile.html:94
 msgid "Location"
 msgstr "Местоположение"
 
@@ -234,6 +277,10 @@ msgstr "Профиль был успешно создан"
 #: profiles/views.py:41
 msgid "The entered data is incorrect"
 msgstr "Введённые данные неверны"
+
+#: profiles/views.py:62
+msgid "Your profile has been updated"
+msgstr "Ваш профиль был успешно обновлен"
 
 #: socialnetwork/settings.py:136
 msgid "English"
