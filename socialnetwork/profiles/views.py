@@ -1,21 +1,23 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
+
 
 from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
 from .models import Profile
 
 
 def register_view(request):
+    form = RegisterForm()
+
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _('The profile has been successfully created'))
-    else:
-        form = RegisterForm()
 
     context = {
         'form': form,
@@ -46,11 +48,13 @@ def login_view(request):
     return render(request, 'profiles/login.html', context)
 
 
+@login_required(login_url='/profiles/login')
 def logout_view(request):
     logout(request)
     return redirect('login')
 
 
+@login_required(login_url='/profiles/login')
 def user_profile_view(request):
     profile = Profile.objects.get(id=request.user.id)
     form = EditAvatarUsernameBioForm(instance=request.user)
@@ -68,6 +72,7 @@ def user_profile_view(request):
     return render(request, 'profiles/user_profile.html', context)
 
 
+@login_required(login_url='/profiles/login')
 def edit_profile_view(request):
     form = EditProfileForm(instance=request.user)
     confirm = False
