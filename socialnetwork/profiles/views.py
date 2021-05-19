@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 
@@ -88,3 +88,23 @@ def edit_profile_view(request):
         'confirm': confirm,
     }
     return render(request, 'profiles/edit_profile.html', context)
+
+
+@login_required(login_url='/profiles/login')
+def export_personal_data_view(request):
+    user_profile = Profile.objects.get(id=request.user.id)
+
+    personal_data = {
+        'username': user_profile.username,
+        'first_name': user_profile.first_name,
+        'last_name': user_profile.last_name,
+        'email': user_profile.email,
+        'phone': user_profile.phone,
+        'birth_date': user_profile.birth_date,
+        'country': user_profile.country,
+        'city': user_profile.city,
+    }
+
+    response = JsonResponse(personal_data)
+    response['Content-Disposition'] = "attachment; filename=personal_data_" + user_profile.username + '.json'
+    return response

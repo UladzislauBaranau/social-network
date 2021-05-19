@@ -35,13 +35,13 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <p class="fs-5 modal-title">{% translate 'Security' %}</p>
+              <p class="fs-5 modal-title ml-5">{% translate 'Profile Security' %}</p>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="list-group">
                   <a href="#" class="list-group-item list-group-item-action">{% translate 'Change password' %}</a>
-                  <a href="#" class="list-group-item list-group-item-action">{% translate 'Export your personal data' %}</a>
+                  <a href="{% url 'export_personal_data' %}" class="list-group-item list-group-item-action">{% translate 'Export your personal data' %}</a>
                   <a href="#" class="list-group-item list-group-item-action">{% translate 'Remove account' %}</a>
                 </div>
             </div>
