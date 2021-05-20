@@ -108,3 +108,17 @@ def export_personal_data_view(request):
     response = JsonResponse(personal_data)
     response['Content-Disposition'] = "attachment; filename=personal_data_" + user_profile.username + '.json'
     return response
+
+
+@login_required(login_url='/profiles/login')
+def remove_account_view(request):
+    account = Profile.objects.get(id=request.user.id)
+
+    if request.method == "POST":
+        account.delete()
+        messages.info(request, _('Your account was successfully deleted.'))
+
+    context = {
+        'account': account,
+    }
+    return render(request, 'profiles/remove_account.html', context)
