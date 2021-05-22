@@ -9,7 +9,7 @@
 {% block content %}
 <div class="row justify-content-center mt-5">
   <div class="col-md-4 text-center">
-    <h3 class="fw-normal">{% translate 'Do you want to remove account?' %}</h3>
+    <h2 class="mb-4 fw-normal">{% translate 'Do you want to remove account?' %}</h2>
     <p>{% translate 'All your personal data will be deleted.' %}</p>
     <form method="POST">
       {% csrf_token %}
