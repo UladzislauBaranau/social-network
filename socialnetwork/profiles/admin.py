@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import ProfileCreationForm
-from .models import Profile
+from .models import Friendship, Profile
 
 
 # Register your models here.
@@ -21,3 +21,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(Profile, CustomUserAdmin)
+admin.site.register(Friendship)

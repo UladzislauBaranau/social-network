@@ -17,6 +17,16 @@ class Profile(AbstractUser):
     phone = models.CharField(_("Phone"), max_length=50, blank=True)
     birth_date = models.DateField(_("Birth date"), null=True, blank=True)
     gender = models.CharField(_("Gender"), max_length=1, choices=GENDER_CHOICES)
+    friends = models.ManyToManyField('self', through='Friendship')
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} {self.date_joined}'
+        return f"{self.username} {self.date_joined.strftime('%Y-%m-%d %H:%M:%S')}"
+
+
+class Friendship(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender} - {self.receiver}. Date created: {self.date_created.strftime('%Y-%m-%d %H:%M:%S')}"
