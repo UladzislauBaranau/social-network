@@ -5,7 +5,6 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 
-
 from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
 from .models import Profile
 
@@ -122,3 +121,13 @@ def remove_account_view(request):
         'account': account,
     }
     return render(request, 'profiles/remove_account.html', context)
+
+
+def get_friends_list_view(request):
+    user_profile = Profile.objects.get(id=request.user.id)
+
+    context = {
+        'friends': user_profile.friends.all(),
+    }
+
+    return render(request, 'profiles/friends_list.html', context)
