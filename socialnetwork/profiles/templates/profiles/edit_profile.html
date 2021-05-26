@@ -26,14 +26,14 @@
         <div class="row g-3 mb-2">
           <div class="col">
             <p class="mb-1">{% translate 'First name' %}</p>
-            <input type="text" class="form-control fw-light" name="first_name" value="{{ user.first_name }}">
+            <input type="text" class="form-control fw-light" name="first_name" value="{{ user.first_name }}" required>
             {% for error in form.first_name.errors %}
               <p class="text-danger mb-0">{{ error }}</p>
             {% endfor %}
           </div>
           <div class="col">
             <p class="mb-1">{% translate 'Last name' %}</p>
-            <input type="text" class="form-control fw-light" name="last_name" value="{{ user.last_name }}">
+            <input type="text" class="form-control fw-light" name="last_name" value="{{ user.last_name }}" required>
             {% for error in form.last_name.errors %}
               <p class="text-danger mb-0">{{ error }}</p>
             {% endfor %}
