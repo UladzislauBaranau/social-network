@@ -148,6 +148,7 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static/']
 
 # Media files
 # https://docs.djangoproject.com/en/3.2/ref/settings/#media-root
