@@ -5,6 +5,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 
+from .backends import get_friends
 from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
 from .models import Profile
 
@@ -123,11 +124,42 @@ def remove_account_view(request):
     return render(request, 'profiles/remove_account.html', context)
 
 
+@login_required(login_url='/profiles/login')
 def get_friends_list_view(request):
-    user_profile = Profile.objects.get(id=request.user.id)
+    friends = get_friends(request)
 
     context = {
-        'friends': user_profile.friends.all(),
+        'friends': friends,
     }
-
     return render(request, 'profiles/friends_list.html', context)
+
+
+@login_required(login_url='/profiles/login')
+def search_result_friends(request):
+    friends = get_friends(request)
+
+    if request.is_ajax():
+        searched = request.POST.get('friend')
+        matches_friends = []
+        for i in friends:
+            if i.first_name.lower().startswith(searched.lower()) or \
+                    i.last_name.lower().startswith(searched.lower()):
+                matches_friends.append(i)
+
+        if len(matches_friends) > 0 and len(searched) > 0:
+            data = []
+            for pos in matches_friends:
+                item = {
+                    'pk': pos.pk,
+                    'first_name': pos.first_name,
+                    'last_name': pos.last_name,
+                    'bio': pos.bio,
+                    'avatar': str(pos.avatar.url),
+                }
+                data.append(item)
+            res = data
+        else:
+            res = 'No friends found ...'
+
+        return JsonResponse({'data': res})
+    return JsonResponse({})

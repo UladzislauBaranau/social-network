@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% load static %}
 
 {% block title %}
 {% translate 'Friends' %}
@@ -17,34 +18,40 @@
         <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
       </div>
     </div>
-    <div class="col">
 
-      {% for friend in friends %}
-      <div class="card-body shadow-sm holder-bottom">
-        <div class="row">
-          <div class="col-2">
-            <img src="{{ friend.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
-          </div>
-          <div class="col-4">
-            {% if friend.first_name and friend.last_name %}
+    <div class="col">
+      <form id="search_form" autocomplete="off">
+        {% csrf_token %}
+        <input id="search_input" class="form-control mb-2" placeholder="Find your friends...">
+      </form>
+      <div id="box_results"></div>
+      <div class="friends_list">
+        {% for friend in friends %}
+        <div class="card-body shadow-sm holder-bottom">
+          <div class="row">
+            <div class="col-2">
+              <img src="{{ friend.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
+            </div>
+            <div class="col-4">
               <p class="fs-5 mb-2">{{ friend.first_name }} {{ friend.last_name }}</p>
-            {% else %}
-              <p class="fs-5 mb-2">{{ friend.username }}</p>
-            {% endif %}
-            {% if friend.bio %}
-              <p class="text-muted fw-light">{{ friend.bio }} </p>
-            {% endif %}
-          </div>
-          <div class="col-3 col align-self-center d-grid gap-2">
-            <button class="btn btn-outline-primary" type="submit">{% translate 'Send messages' %}</button>
-          </div>
-          <div class="col-3 col align-self-center d-grid gap-2">
-            <button class="btn btn-outline-danger" type="submit">{% translate 'Remove from friends' %}</button>
+              <p class="text-muted fw-light">{{ friend.bio }}</p>
+            </div>
+            <div class="col-3 col align-self-center d-grid gap-2">
+              <button class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</button>
+            </div>
+            <div class="col-3 col align-self-center d-grid gap-2">
+              <button class="btn btn-outline-danger" type="submit">{% translate 'Remove from friends' %}</button>
+            </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
+    <div class="col-1"></div>
   </div>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+  <script src="{% static 'js/searchFriends.js' %}"></script>
+{% endblock scripts %}
