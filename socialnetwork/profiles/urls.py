@@ -12,6 +12,7 @@ urlpatterns = [
     path('export_personal_data', views.export_personal_data_view, name='export_personal_data'),
     path('remove_account', views.remove_account_view, name='remove_account'),
     path('friends_list', views.get_friends_list_view, name='friends_list'),
+    path('<int:pk>', views.friend_details_view, name='friend_details'),
     path('search_friend', views.search_result_friends, name='search_result_friends'),
 
     path('reset_password/',

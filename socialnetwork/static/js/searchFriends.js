@@ -34,7 +34,7 @@ const sendSearchFriends = (friend) => {
                           <p class="text-muted fw-light">${ friend.bio }</p>
                         </div>
                         <div class="col-3 col align-self-center d-grid gap-2">
-                          <button class="btn btn-outline-primary" type="submit">See profile</button>
+                          <a href="${friend.pk}" class="btn btn-outline-primary" type="submit">See profile</a>
                         </div>
                         <div class="col-3 col align-self-center d-grid gap-2">
                           <button class="btn btn-outline-danger" type="submit">Remove from friends</button>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<div class="container my-lg-2">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="card-body shadow-sm holder-bottom">
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card-body shadow-sm holder-bottom">
+        <div class="row">
+          <div class="col">
+            <img src="{{ obj.avatar.url }}" class="rounded mx-auto d-block mb-2" width="200" height="200">
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal">{% translate 'Send messages' %}</button>
+            </div>
+          </div>
+          <div class="col-8">
+            {% if obj.first_name and obj.last_name %}
+              <p class="fs-4 mb-1">{{ obj.first_name }} {{ obj.last_name }}</p>
+            {% else %}
+              <p class="fs-4">{{ obj.username }}</p>
+            {% endif %}
+
+            {% if obj.bio %}
+              <p class="text-muted fw-light">{{ obj.bio }} </p>
+            {% endif %}
+            <hr class="my-3">
+
+            {% if obj.country and obj.city %}
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ obj.city }}, {{ obj.country }}</p>
+            {% elif obj.country %}
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ obj.country }}</p>
+            {% elif obj.city %}
+              <p class="fw-light mb-2">{% translate 'Location' %}: {{ obj.city }}</p>
+            {% endif %}
+
+            {% if obj.birth_date %}
+              <p class="fw-light mb-2">{% translate 'Birth date' %}: {{ obj.birth_date }}</p>
+            {% endif %}
+
+            {% if obj.phone %}
+              <p class="fw-light mb-2">{% translate 'Phone' %}: {{ obj.phone }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
+{% endblock content %}

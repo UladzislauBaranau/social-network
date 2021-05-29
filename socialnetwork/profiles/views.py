@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 
 from .backends import get_friends
@@ -132,6 +132,16 @@ def get_friends_list_view(request):
         'friends': friends,
     }
     return render(request, 'profiles/friends_list.html', context)
+
+
+@login_required(login_url='/profiles/login')
+def friend_details_view(request, pk):
+    obj = get_object_or_404(Profile, pk=pk)
+
+    context = {
+        'obj': obj,
+    }
+    return render(request, 'profiles/friend_details.html', context)
 
 
 @login_required(login_url='/profiles/login')
