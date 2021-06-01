@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 
 from .backends import get_friends
 from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
-from .models import Profile
+from .models import Friendship, Profile
 
 
 def register_view(request):
@@ -173,3 +174,19 @@ def search_result_friends(request):
 
         return JsonResponse({'data': res})
     return JsonResponse({})
+
+
+@login_required(login_url='/profiles/login')
+def remove_from_friends(request):
+    if request.method == "POST":
+        pk = request.POST.get("profile_pk")
+        sender = Profile.objects.get(id=request.user.id)
+        receiver = Profile.objects.get(pk=pk)
+
+        qs_friendship = Friendship.objects.get(
+            (Q(sender=sender) & Q(receiver=receiver)) | (Q(sender=receiver) & Q(receiver=sender)),
+        )
+        qs_friendship.delete()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('remove_friend')
