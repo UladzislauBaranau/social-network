@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% translate 'Searched users' %}
+{% endblock title %}
+
+{% block content %}
+<div class="container my-lg-2">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="card-body shadow-sm holder-bottom">
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a>
+        </p>
+        <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
+      </div>
+    </div>
+
+    <div class="col">
+      {% if users %}
+
+        {% for user in users %}
+          <div class="card-body shadow-sm holder-bottom">
+            <div class="row">
+              <div class="col-2">
+                <img src="{{ user.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
+              </div>
+              <div class="col-4">
+                <p class="fs-5 mb-2">{{ user.first_name }} {{ user.last_name }}</p>
+                <p class="text-muted fw-light">{{ user.bio }}</p>
+              </div>
+              <div class="col-3 col align-self-center d-grid gap-2">
+                <a href="{% url 'friend_details' user.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
+              </div>
+
+              {% if user in profile.friends.all or profile in user.friends.all %}
+              <div class="col-3 col align-self-center d-grid gap-2">
+                <button type="button" class="btn btn-secondary" disabled data-bs-toggle="button" autocomplete="off">Your friend</button>
+              </div>
+              {% else %}
+              <div class="col-3 col align-self-center d-grid gap-2">
+                <button type="button" class="btn btn-outline-success">Add to friends</button>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+          {% endfor %}
+
+      {% else %}
+        <p class="fs-5 text fw-light">Nothing was found. Please enter first or last name again.</p>
+      {% endif %}
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
+{% endblock content %}

@@ -190,3 +190,22 @@ def remove_from_friends(request):
 
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('remove_friend')
+
+
+@login_required(login_url='/profiles/login')
+def search_users(request):
+    context = {}
+
+    if request.method == "POST":
+        searched = request.POST['searched_users']
+
+        searched_user = Profile.objects.filter(
+            (Q(first_name__istartswith=searched)) | (Q(last_name__istartswith=searched)),
+        ).exclude(id=request.user.id)
+        profile = Profile.objects.get(id=request.user.id)
+
+        context = {
+            'users': searched_user,
+            'profile': profile,
+        }
+    return render(request, 'profiles/searched_users.html', context)
