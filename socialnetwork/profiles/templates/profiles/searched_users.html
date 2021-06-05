@@ -37,11 +37,11 @@
 
               {% if user in profile.friends.all or profile in user.friends.all %}
               <div class="col-3 col align-self-center d-grid gap-2">
-                <button type="button" class="btn btn-secondary" disabled data-bs-toggle="button" autocomplete="off">Your friend</button>
+                <button type="button" class="btn btn-secondary" disabled data-bs-toggle="button" autocomplete="off">{% translate 'Your friend' %}</button>
               </div>
               {% else %}
               <div class="col-3 col align-self-center d-grid gap-2">
-                <button type="button" class="btn btn-outline-success">Add to friends</button>
+                <button type="button" class="btn btn-outline-success">{% translate 'Add to friends' %}</button>
               </div>
               {% endif %}
 
@@ -50,7 +50,7 @@
           {% endfor %}
 
       {% else %}
-        <p class="fs-5 text fw-light">Nothing was found. Please enter first or last name again.</p>
+        <p class="fs-5 text fw-light">{% translate 'Nothing was found. Please enter first or last name again' %}.</p>
       {% endif %}
     </div>
     <div class="col-1"></div>
