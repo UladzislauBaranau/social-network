@@ -24,9 +24,15 @@ class Profile(AbstractUser):
 
 
 class Friendship(models.Model):
+    STATUS_CHOICES = [
+        ('S', _('Send')),
+        ('A', _('Accepted')),
+    ]
     sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
     date_created = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default='S')
 
     def __str__(self):
-        return f"{self.sender} - {self.receiver}. Date created: {self.date_created.strftime('%Y-%m-%d %H:%M:%S')}"
+        return f"{self.sender} - {self.receiver}, status={self.status}. " \
+               f"Date created: {self.date_created.strftime('%Y-%m-%d %H:%M:%S')}"
