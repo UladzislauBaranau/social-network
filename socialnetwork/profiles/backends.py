@@ -25,8 +25,8 @@ class EmailPhoneAuthBackend(ModelBackend):
 
 
 def get_friends(request):
-    qs_senders = Friendship.objects.filter(sender=request.user)
-    qs_receivers = Friendship.objects.filter(receiver=request.user)
+    qs_senders = Friendship.objects.filter(sender=request.user).filter(status='A')
+    qs_receivers = Friendship.objects.filter(receiver=request.user).filter(status='A')
 
     friends = []
     for i in qs_senders:
