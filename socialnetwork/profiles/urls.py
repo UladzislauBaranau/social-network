@@ -16,6 +16,7 @@ urlpatterns = [
     path('search_friend', views.search_result_friends, name='search_result_friends'),
     path('search_users', views.search_users, name='search_users'),
     path('remove_friend', views.remove_from_friends, name='remove_friend'),
+    path('send_invitation', views.send_invitation, name='send_invitation'),
 
     path('reset_password/',
          auth_views.PasswordResetView.as_view(template_name='profiles/password_reset.html'),

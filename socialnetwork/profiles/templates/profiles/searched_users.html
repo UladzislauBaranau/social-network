@@ -20,7 +20,6 @@
 
     <div class="col">
       {% if users %}
-
         {% for user in users %}
           <div class="card-body shadow-sm holder-bottom">
             <div class="row">
@@ -35,19 +34,28 @@
                 <a href="{% url 'friend_details' user.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
               </div>
 
-              {% if user in profile.friends.all or profile in user.friends.all %}
+              {% if user in profile.friends.all and user in accepted %}
               <div class="col-3 col align-self-center d-grid gap-2">
-                <button type="button" class="btn btn-secondary" disabled data-bs-toggle="button" autocomplete="off">{% translate 'Your friend' %}</button>
+                <button type="button" class="btn btn-outline-secondary">{% translate 'Your friend' %}</button>
               </div>
+
+              {% elif user in profile.friends.all and user not in accepted %}
+              <div class="col-3 col align-self-center d-grid gap-2">
+                <button type="button" class="btn btn-outline-secondary" disabled data-bs-toggle="button">{% translate 'Waiting for approval' %}</button>
+              </div>
+
               {% else %}
               <div class="col-3 col align-self-center d-grid gap-2">
-                <button type="button" class="btn btn-outline-success">{% translate 'Add to friends' %}</button>
+                <form action="{% url 'send_invitation' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="profile_pk" value={{user.pk}}>
+                  <button class="btn btn-outline-success" type="submit">{% translate 'Add to friends' %}</button>
+                </form>
               </div>
               {% endif %}
-
             </div>
           </div>
-          {% endfor %}
+        {% endfor %}
 
       {% else %}
         <p class="fs-5 text fw-light">{% translate 'Nothing was found. Please enter first or last name again' %}.</p>

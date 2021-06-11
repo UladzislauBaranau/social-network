@@ -194,18 +194,34 @@ def remove_from_friends(request):
 
 @login_required(login_url='/profiles/login')
 def search_users(request):
-    context = {}
+    searched_user = Profile.objects.all().exclude(id=request.user.id)
 
     if request.method == "POST":
         searched = request.POST['searched_users']
-
         searched_user = Profile.objects.filter(
             (Q(first_name__istartswith=searched)) | (Q(last_name__istartswith=searched)),
         ).exclude(id=request.user.id)
-        profile = Profile.objects.get(id=request.user.id)
 
-        context = {
-            'users': searched_user,
-            'profile': profile,
-        }
+    profile = Profile.objects.get(id=request.user.id)
+    qs = Friendship.objects.filter(sender=profile).filter(status='A')
+    accepted = [friendship.receiver for friendship in qs]
+
+    context = {
+        'users': searched_user,
+        'profile': profile,
+        'accepted': accepted,
+    }
     return render(request, 'profiles/searched_users.html', context)
+
+
+@login_required(login_url='/profiles/login')
+def send_invitation(request):
+    if request.method == "POST":
+        pk = request.POST.get("profile_pk")
+        sender = Profile.objects.get(id=request.user.id)
+        receiver = Profile.objects.get(pk=pk)
+
+        Friendship.objects.create(sender=sender, receiver=receiver, status='S')
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('send_invitation')
