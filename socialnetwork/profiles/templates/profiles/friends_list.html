@@ -29,7 +29,7 @@
     <div class="col">
       <form id="search_form" autocomplete="off">
         {% csrf_token %}
-        <input id="search_input" class="form-control mb-2" placeholder="Find your friends...">
+        <input id="search_input" class="form-control mb-2" placeholder="{% translate 'Find your friends...' %}">
       </form>
       <div id="box_results"></div>
       <div class="friends_list">

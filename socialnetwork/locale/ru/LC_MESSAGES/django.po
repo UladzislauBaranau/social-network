@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-05 17:43+0000\n"
+"POT-Creation-Date: 2021-06-13 18:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,6 +88,14 @@ msgstr "Дата рождения"
 msgid "Gender"
 msgstr "Пол"
 
+#: profiles/models.py:28
+msgid "Send"
+msgstr ""
+
+#: profiles/models.py:29
+msgid "Accepted"
+msgstr ""
+
 #: profiles/templates/navbar.html:16
 msgid "Search Users"
 msgstr "Найти пользователей"
@@ -98,6 +106,7 @@ msgstr "Поиск"
 
 #: profiles/templates/navbar.html:25
 #: profiles/templates/profiles/friend_details.html:14
+#: profiles/templates/profiles/friend_requests.html:16
 #: profiles/templates/profiles/friends_list.html:16
 #: profiles/templates/profiles/searched_users.html:15
 #: profiles/templates/profiles/user_profile.html:15
@@ -173,8 +182,9 @@ msgid "Update"
 msgstr "Обновить"
 
 #: profiles/templates/profiles/friend_details.html:15
+#: profiles/templates/profiles/friend_requests.html:19
 #: profiles/templates/profiles/friends_list.html:7
-#: profiles/templates/profiles/friends_list.html:18
+#: profiles/templates/profiles/friends_list.html:19
 #: profiles/templates/profiles/searched_users.html:17
 #: profiles/templates/profiles/user_profile.html:16
 msgid "Friends"
@@ -193,14 +203,46 @@ msgstr "Отправить сообщение"
 msgid "Location"
 msgstr "Местоположение"
 
-#: profiles/templates/profiles/friends_list.html:40
-#: profiles/templates/profiles/searched_users.html:35
+#: profiles/templates/profiles/friend_requests.html:7
+#: profiles/templates/profiles/friend_requests.html:23
+#: profiles/templates/profiles/friends_list.html:23
+msgid "Friend requests"
+msgstr "Запросы в друзья"
+
+#: profiles/templates/profiles/friend_requests.html:22
+#: profiles/templates/profiles/friends_list.html:22
+msgid "Friend list"
+msgstr "Список друзей"
+
+#: profiles/templates/profiles/friend_requests.html:42
+#: profiles/templates/profiles/friends_list.html:48
+#: profiles/templates/profiles/searched_users.html:34
 msgid "See profile"
 msgstr "Посмотреть профиль"
 
-#: profiles/templates/profiles/friends_list.html:46
+#: profiles/templates/profiles/friend_requests.html:48
+msgid "Accept invite"
+msgstr "Принять приглашение"
+
+#: profiles/templates/profiles/friend_requests.html:54
+msgid "Reject invite"
+msgstr "Отклонить приглашение"
+
+#: profiles/templates/profiles/friend_requests.html:61
+msgid "No friend requests"
+msgstr "Никаких запросов на добавление в друзья"
+
+#: profiles/templates/profiles/friends_list.html:32
+msgid "Find your friends..."
+msgstr "Найди своих друзей..."
+
+#: profiles/templates/profiles/friends_list.html:53
 msgid "Remove from friends"
 msgstr "Удалить из друзей"
+
+#: profiles/templates/profiles/friends_list.html:59
+msgid "The friend's list is empty"
+msgstr "Список друзей пуст"
 
 #: profiles/templates/profiles/login.html:6
 msgid "Log In or Sign Up"
@@ -351,15 +393,19 @@ msgstr "Покинуть страницу"
 msgid "Searched users"
 msgstr "Пользователи"
 
-#: profiles/templates/profiles/searched_users.html:40
+#: profiles/templates/profiles/searched_users.html:39
 msgid "Your friend"
 msgstr "Ваш друг"
 
 #: profiles/templates/profiles/searched_users.html:44
+msgid "Waiting for approval"
+msgstr "Заявка отправлена"
+
+#: profiles/templates/profiles/searched_users.html:51
 msgid "Add to friends"
 msgstr "Добавить в друзья"
 
-#: profiles/templates/profiles/searched_users.html:53
+#: profiles/templates/profiles/searched_users.html:59
 msgid "Nothing was found. Please enter first or last name again"
 msgstr "Ничего не найдено. Пожалуйста введите имя или фамилию еще раз"
 
@@ -390,6 +436,10 @@ msgstr "Ваш профиль был успешно обновлен"
 #: profiles/views.py:120
 msgid "Your account was successfully deleted."
 msgstr "Ваш аккаунт успешно удален."
+
+#: profiles/views.py:173
+msgid "No friends found ..."
+msgstr "Ничего не найдено..."
 
 #: socialnetwork/settings.py:136
 msgid "English"

@@ -170,7 +170,7 @@ def search_result_friends(request):
                 data.append(item)
             res = data
         else:
-            res = 'No friends found ...'
+            res = _('No friends found ...')
 
         return JsonResponse({'data': res})
     return JsonResponse({})
