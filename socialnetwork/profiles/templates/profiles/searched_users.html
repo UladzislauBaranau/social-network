@@ -45,13 +45,11 @@
               </div>
 
               {% else %}
-              <div class="col-3 col align-self-center d-grid gap-2">
-                <form action="{% url 'send_invitation' %}" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="profile_pk" value={{user.pk}}>
-                  <button class="btn btn-outline-success" type="submit">{% translate 'Add to friends' %}</button>
-                </form>
-              </div>
+              <form action="{% url 'send_invitation' %}" method="POST" class="col-3 col align-self-center d-grid gap-2">
+                {% csrf_token %}
+                <input type="hidden" name="profile_pk" value={{user.pk}}>
+                <button type="submit" class="btn btn-outline-success">{% translate 'Add to friends' %}</button>
+              </form>
               {% endif %}
             </div>
           </div>

@@ -225,3 +225,42 @@ def send_invitation(request):
 
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('send_invitation')
+
+
+@login_required(login_url='/profiles/login')
+def friend_request_view(request):
+    profile = Profile.objects.get(id=request.user.id)
+    qs = Friendship.objects.filter(receiver=profile).filter(status='S')
+    friend_requests = [friendship.sender for friendship in qs]
+
+    context = {
+        'friend_requests': friend_requests,
+    }
+    return render(request, 'profiles/friend_requests.html', context)
+
+
+@login_required(login_url='/profiles/login')
+def accept_invite(request):
+    if request.method == "POST":
+        pk = request.POST.get("profile_pk")
+        user = Profile.objects.get(id=request.user.id)
+        friend_request = Profile.objects.get(pk=pk)
+
+        friendship = get_object_or_404(Friendship, sender=friend_request, receiver=user)
+        friendship.status = 'A'
+        friendship.save()
+
+    return redirect('friend_requests')
+
+
+@login_required(login_url='/profiles/login')
+def reject_invite(request):
+    if request.method == "POST":
+        pk = request.POST.get("profile_pk")
+        user = Profile.objects.get(id=request.user.id)
+        friend_request = Profile.objects.get(pk=pk)
+
+        friendship = get_object_or_404(Friendship, sender=friend_request, receiver=user)
+        friendship.delete()
+
+    return redirect('friend_requests')

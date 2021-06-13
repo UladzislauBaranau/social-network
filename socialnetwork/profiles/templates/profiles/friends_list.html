@@ -13,9 +13,16 @@
     <div class="col-1"></div>
     <div class="col-2">
       <div class="card-body shadow-sm holder-bottom">
-        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a>
-        </p>
-        <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a></p>
+        <div class="dropdown">
+          <p class="dropdown-toggle fw-light mb-2 text-decoration-underline" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+            {% translate 'Friends' %}
+          </p>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item fw-light mb-2" href="{% url 'friends_list' %}">{% translate 'Friend list' %}</a></li>
+            <li><a class="dropdown-item fw-light mb-2" href="{% url 'friend_requests' %}">{% translate 'Friend requests' %}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -26,29 +33,31 @@
       </form>
       <div id="box_results"></div>
       <div class="friends_list">
-        {% for friend in friends %}
-        <div class="card-body shadow-sm holder-bottom">
-          <div class="row">
-            <div class="col-2">
-              <img src="{{ friend.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
-            </div>
-            <div class="col-4">
-              <p class="fs-5 mb-2">{{ friend.first_name }} {{ friend.last_name }}</p>
-              <p class="text-muted fw-light">{{ friend.bio }}</p>
-            </div>
-            <div class="col-3 col align-self-center d-grid gap-2">
-              <a href="{% url 'friend_details' friend.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
-            </div>
-            <div class="col-3 col align-self-center d-grid gap-2">
-              <form action="{% url 'remove_friend' %}" method="POST">
+        {% if friends %}
+          {% for friend in friends %}
+          <div class="card-body shadow-sm holder-bottom">
+            <div class="row">
+              <div class="col-2">
+                <img src="{{ friend.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
+              </div>
+              <div class="col-4">
+                <p class="fs-5 mb-2">{{ friend.first_name }} {{ friend.last_name }}</p>
+                <p class="text-muted fw-light">{{ friend.bio }}</p>
+              </div>
+              <div class="col-3 col align-self-center d-grid gap-2">
+                <a href="{% url 'friend_details' friend.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
+              </div>
+              <form action="{% url 'remove_friend' %}" method="POST" class="col-3 col align-self-center d-grid gap-2">
                 {% csrf_token %}
                 <input type="hidden" name="profile_pk" value={{friend.pk}}>
-                <button class="btn btn-outline-danger" type="submit">{% translate 'Remove from friends' %}</button>
+                <button type="submit" class="btn btn-outline-danger">{% translate 'Remove from friends' %}</button>
               </form>
             </div>
           </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
+        {% else %}
+          <p class="fs-5 text fw-light">{% translate "The friend's list is empty" %}.</p>
+        {% endif %}
       </div>
     </div>
     <div class="col-1"></div>

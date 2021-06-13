@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+{% translate 'Friend requests' %}
+{% endblock title %}
+
+{% block content %}
+<div class="container my-lg-2">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="card-body shadow-sm holder-bottom">
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a></p>
+        <div class="dropdown">
+          <p class="dropdown-toggle fw-light mb-2 text-decoration-underline" id="dropdownMenuButton1" data-bs-toggle="dropdown">
+            {% translate 'Friends' %}
+          </p>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item fw-light mb-2" href="{% url 'friends_list' %}">{% translate 'Friend list' %}</a></li>
+            <li><a class="dropdown-item fw-light mb-2" href="{% url 'friend_requests' %}">{% translate 'Friend requests' %}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      {% if friend_requests %}
+        {% for user in friend_requests %}
+        <div class="card-body shadow-sm holder-bottom">
+          <div class="row">
+            <div class="col-2">
+              <img src="{{ user.avatar.url }}" class="rounded mx-auto d-block mb-2" width="70" height="70">
+            </div>
+            <div class="col-4">
+              <p class="fs-5 mb-2">{{ user.first_name }} {{ user.last_name }}</p>
+              <p class="text-muted fw-light">{{ user.bio }}</p>
+            </div>
+            <div class="col-3 col align-self-center d-grid gap-2">
+              <a href="{% url 'friend_details' user.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
+            </div>
+            <div class="col-3 col align-self-center gap-2">
+              <form action="{% url 'accept_invite' %}" method="POST" class="d-grid mb-2">
+                {% csrf_token %}
+                <input type="hidden" name="profile_pk" value={{user.pk}}>
+                <button type="submit" class="btn btn-outline-success">{% translate 'Accept invite' %}</button>
+              </form>
+
+              <form action="{% url 'reject_invite' %}" method="POST" class="d-grid">
+                {% csrf_token %}
+                <input type="hidden" name="profile_pk" value={{user.pk}}>
+                <button type="submit" class="btn btn-outline-danger">{% translate 'Reject invite' %}</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="fs-5 text fw-light">{% translate 'No friend requests' %}.</p>
+      {% endif %}
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
