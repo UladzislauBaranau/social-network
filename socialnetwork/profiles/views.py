@@ -203,8 +203,14 @@ def search_users(request):
         ).exclude(id=request.user.id)
 
     profile = Profile.objects.get(id=request.user.id)
-    qs = Friendship.objects.filter(sender=profile).filter(status='A')
-    accepted = [friendship.receiver for friendship in qs]
+    qs = Friendship.objects.filter(Q(sender=profile) | (Q(receiver=profile))).filter(status='A')
+
+    accepted = []
+    for friendship in qs:
+        if friendship.receiver != profile:
+            accepted.append(friendship.receiver)
+        if friendship.sender != profile:
+            accepted.append(friendship.sender)
 
     context = {
         'users': searched_user,
@@ -221,7 +227,11 @@ def send_invitation(request):
         sender = Profile.objects.get(id=request.user.id)
         receiver = Profile.objects.get(pk=pk)
 
-        Friendship.objects.create(sender=sender, receiver=receiver, status='S')
+        friendship = Friendship.objects.filter(sender=receiver, receiver=sender).filter(Q(status='S') | Q(status='A'))
+        if not friendship:
+            Friendship.objects.create(sender=sender, receiver=receiver, status='S')
+        else:
+            messages.info(request, f'{receiver.first_name} {receiver.last_name}')
 
         return redirect(request.META.get('HTTP_REFERER'))
     return redirect('send_invitation')

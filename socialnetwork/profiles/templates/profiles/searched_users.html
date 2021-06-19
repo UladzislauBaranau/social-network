@@ -20,6 +20,14 @@
 
     <div class="col">
       {% if users %}
+        {% for message in messages %}
+          <div class="alert alert-info mb-3 text-center" role="alert">
+            {{ message }} {% translate 'has already sent you a request' %}.
+            {% translate 'See your' %} <a href="{% url 'friend_requests' %}" class="alert-link">{% translate 'friends requests' %}</a>.
+          </div>
+        {% endfor %}
+
+
         {% for user in users %}
           <div class="card-body shadow-sm holder-bottom">
             <div class="row">
@@ -34,7 +42,7 @@
                 <a href="{% url 'friend_details' user.pk %}" class="btn btn-outline-primary" type="submit">{% translate 'See profile' %}</a>
               </div>
 
-              {% if user in profile.friends.all and user in accepted %}
+              {% if user in accepted %}
               <div class="col-3 col align-self-center d-grid gap-2">
                 <button type="button" class="btn btn-outline-secondary">{% translate 'Your friend' %}</button>
               </div>
