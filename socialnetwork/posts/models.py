@@ -13,7 +13,7 @@ class Post(models.Model):
     date_updated = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.post_author}: {self.content[:5]}"
+        return f"{self.post_author}: {self.content[:10]}"
 
 
 class Comment(models.Model):
