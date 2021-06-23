@@ -117,7 +117,7 @@ class UserProfileTests(TestCase):
                                              'birth_date': '2020-12-07',
                                              'gender': 'M',
                                              'phone': '+375297777777',
-                                         }
+                                         },
                                          )
         self.assertEqual(edit_response.status_code, 200)
 
