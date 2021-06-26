@@ -29,6 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Login url
+# https://docs.djangoproject.com/en/3.2/ref/settings/#login-url
+
+LOGIN_URL = '/profiles/login'
+
 # Application definition
 
 INSTALLED_APPS = [
