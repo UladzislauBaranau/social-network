@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+{% translate 'Post remove' %}
+{% endblock title %}
+
+{% block content %}
+<div class="container my-lg-2">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="card-body shadow-sm holder-bottom">
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'posts' %}" class="text-reset">{% translate 'Posts' %}</a></p>
+      </div>
+    </div>
+    <div class="col-6 text-center">
+      <p class="fs-5 text fw-light mt-2">{% translate 'Do you want to remove a post' %}?</p>
+      <p class="fw-light">{% translate 'After deleting the post, you will not be able to restore it' %}.</p>
+      <form method="POST">
+        {% csrf_token %}
+        <hr>
+        <button class="btn btn-outline-danger" type="submit">{% translate 'Remove post' %}</button>
+        <a href="{% url 'posts' %}" class="btn btn-outline-primary" role="button" aria-disabled="true">{% translate 'Leave this page' %}</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

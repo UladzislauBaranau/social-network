@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block title %}
+{% translate 'Post edit' %}
+{% endblock title %}
+
+{% block content %}
+<div class="container my-lg-2">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="card-body shadow-sm holder-bottom">
+        <p class="fw-light mb-2"><a href="{% url 'user_profile' %}" class="text-reset">{% translate 'My profile' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'friends_list' %}" class="text-reset">{% translate 'Friends' %}</a></p>
+        <p class="fw-light mb-2"><a href="{% url 'posts' %}" class="text-reset">{% translate 'Posts' %}</a></p>
+      </div>
+    </div>
+    <div class="col-6">
+      <p class="fs-5 text fw-light mt-2">{% translate 'Make your post better' %}.</p>
+      <form method="POST">
+        {% csrf_token %}
+        <textarea class="form-control fw-light mb-2" name="content" style="height: 150px">{{ post.content }}</textarea>
+        <hr class="my-3">
+        <button class="w-100 btn btn-success" type="submit">{% translate 'Edit post' %}</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

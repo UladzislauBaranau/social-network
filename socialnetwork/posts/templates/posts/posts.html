@@ -18,21 +18,54 @@
       </div>
     </div>
     <div class="col-6">
+
+      {% for message in messages %}
+        {% if 'success' in message.tags %}
+          <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            {{ message }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+        {% if 'info' in message.tags %}
+          <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+            {{ message }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+        {% if 'warning' in message.tags %}
+          <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            {{ message }}.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      <p class="fs-5 text fw-light mt-2">{% translate 'Add a new post' %}!</p>
       <form method="POST">
         {% csrf_token %}
         <div class="form-floating mb-3">
           <textarea class="form-control" id="floatingTextarea2" name="content" placeholder="Leave a comment here" style="height: 150px"></textarea>
           <label class="text-muted" for="floatingTextarea2">{% translate 'Write something interesting...' %}</label>
         </div>
-        <hr>
         <div class="mb-3">
           <button class="w-100 btn btn-success" type="submit">{% translate 'Publish' %}</button>
         </div>
       </form>
+      <hr>
       {% for post in all_posts %}
       <div class="card mb-3">
-        <div class="card-header">{{ post.date_updated }}</div>
-        <div class="card-body">{{ post.content }}</div>
+        <div class="card-header">
+          <div class="row">
+            <div class="col">{{ post.date_created }}</div>
+            <div class="col-1"><i class="bi bi-pin-angle" style="font-size: 1.2rem"></i></div>
+            <div class="col-1"><a href="{% url 'remove_post' post.pk %}" style="color: #333;"><i class="bi bi-trash" style="font-size: 1.2rem"></i></a></div>
+            <div class="col-1"><a href="{% url 'edit_post' post.pk %}" style="color: #333;"><i class="bi bi-pencil-square" style="font-size: 1.2rem"></i></a></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text"><small class="text-muted">Last updated {{ post.date_updated }}</small></p>
+        </div>
       </div>
       {% endfor %}
     </div>
