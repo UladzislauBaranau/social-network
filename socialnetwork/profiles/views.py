@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 
+from posts.forms import CommentForm
 from posts.models import Post
 
 from .backends import get_friends
@@ -60,19 +61,29 @@ def logout_view(request):
 @login_required(login_url='/profiles/login')
 def user_profile_view(request):
     profile = Profile.objects.get(id=request.user.id)
-    form = EditAvatarUsernameBioForm(instance=request.user)
     posts = Post.objects.all().order_by('-date_created').filter(post_author=request.user)
+    edit_profile_form = EditAvatarUsernameBioForm(instance=request.user)
+    comment_form = CommentForm()
 
-    if request.method == 'POST':
-        form = EditAvatarUsernameBioForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
+    if "submit_edit_profile_form" in request.POST:
+        edit_profile_form = EditAvatarUsernameBioForm(request.POST, request.FILES, instance=request.user)
+        if edit_profile_form.is_valid():
+            edit_profile_form.save()
             messages.success(request, _('Your profile has been updated'))
+
+    if "submit_comment_form" in request.POST:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.comment_author = profile
+            new_comment.post = Post.objects.get(id=request.POST.get('post_id'))
+            new_comment.save()
 
     context = {
         'profile': profile,
-        'form': form,
+        'form': edit_profile_form,
         'posts': posts,
+        'comment_form': comment_form,
     }
     return render(request, 'profiles/user_profile.html', context)
 
