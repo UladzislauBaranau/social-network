@@ -3,6 +3,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
+{{ obj.first_name}} {{ obj.last_name}}
 {% endblock title %}
 
 {% block content %}
@@ -16,11 +17,12 @@
         <p class="fw-light mb-2"><a href="{% url 'posts' %}" class="text-reset">{% translate 'Posts' %}</a></p>
       </div>
     </div>
-    <div class="col">
-      <div class="card-body shadow-sm holder-bottom">
+
+    <div class="col-6">
+      <div class="card-body shadow-sm holder-bottom mb-3">
         <div class="row">
           <div class="col">
-            <img src="{{ obj.avatar.url }}" class="rounded mx-auto d-block mb-2" width="200" height="200">
+            <img src="{{ obj.avatar.url }}" class="rounded mx-auto d-block mb-2" width="170" height="170">
             <div class="d-grid gap-2">
               <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal">{% translate 'Send messages' %}</button>
             </div>
@@ -55,8 +57,39 @@
           </div>
         </div>
       </div>
+
+      {% if posts %}
+        {% for post in posts %}
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row">
+                <div class="col align-self-center">
+                  <img src="{{ obj.avatar.url }}" class="rounded-circle float-start me-2" width="20" height="20">
+                  {{ obj.first_name }} {{ obj.last_name }} - {{ post.date_created }}
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text"><small class="text-muted">Last updated {{ post.date_updated|timesince }} ago</small></p>
+              <hr>
+              <div class="row">
+                <div class="col-6 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chat-right"></i> {% translate 'Comments' %}</button>
+                </div>
+                <div class="col-3 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-up"></i> {% translate 'Like' %}</button>
+                </div>
+                <div class="col-3 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-down"></i> {% translate 'Unlike' %}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
-    <div class="col-1"></div>
+    <div class="col-3"></div>
   </div>
 </div>
 {% endblock content %}

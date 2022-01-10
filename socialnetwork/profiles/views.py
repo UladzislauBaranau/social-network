@@ -6,6 +6,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 
+from posts.models import Post
+
 from .backends import get_friends
 from .forms import EditAvatarUsernameBioForm, EditProfileForm, LoginForm, RegisterForm
 from .models import Friendship, Profile
@@ -59,6 +61,7 @@ def logout_view(request):
 def user_profile_view(request):
     profile = Profile.objects.get(id=request.user.id)
     form = EditAvatarUsernameBioForm(instance=request.user)
+    posts = Post.objects.all().order_by('-date_created').filter(post_author=request.user)
 
     if request.method == 'POST':
         form = EditAvatarUsernameBioForm(request.POST, request.FILES, instance=request.user)
@@ -69,6 +72,7 @@ def user_profile_view(request):
     context = {
         'profile': profile,
         'form': form,
+        'posts': posts,
     }
     return render(request, 'profiles/user_profile.html', context)
 
@@ -138,9 +142,11 @@ def get_friends_list_view(request):
 @login_required(login_url='/profiles/login')
 def friend_details_view(request, pk):
     obj = get_object_or_404(Profile, pk=pk)
+    posts = Post.objects.all().order_by('-date_created').filter(post_author=obj)
 
     context = {
         'obj': obj,
+        'posts': posts,
     }
     return render(request, 'profiles/friend_details.html', context)
 

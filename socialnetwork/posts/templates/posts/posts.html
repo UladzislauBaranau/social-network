@@ -17,8 +17,8 @@
         <p class="fw-light mb-2"><a href="{% url 'posts' %}" class="text-reset">{% translate 'Posts' %}</a></p>
       </div>
     </div>
-    <div class="col-6">
 
+    <div class="col-6">
       {% for message in messages %}
         {% if 'success' in message.tags %}
           <div class="alert alert-success alert-dismissible fade show text-center" role="alert">

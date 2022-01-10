@@ -17,23 +17,21 @@
         <p class="fw-light mb-2"><a href="{% url 'posts' %}" class="text-reset">{% translate 'Posts' %}</a></p>
       </div>
     </div>
-    <div class="col">
-      <div class="card-body shadow-sm holder-bottom">
 
+    <div class="col-6">
+      <div class="card-body shadow-sm holder-bottom mb-3">
         {% for message in messages %}
           <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
             {{ message }}.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         {% endfor %}
-
         <div class="row">
           <div class="col">
-            <img src="{{ profile.avatar.url }}" class="rounded mx-auto d-block mb-2" width="200" height="200">
+            <img src="{{ profile.avatar.url }}" class="rounded mx-auto d-block mb-2" width="170" height="170">
             <!-- Button trigger modal -->
             <div class="d-grid gap-2">
-              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-                      data-bs-target="#updateProfileModal">
+              <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#updateProfileModal">
                 {% translate 'Update' %}
               </button>
             </div>
@@ -55,7 +53,6 @@
                         <p class="mb-2">{{ form.avatar }}</p>
                         <p class="mb-1">{% translate 'Username' %}</p>
                         <input type="text" class="form-control fw-light mb-2" name="username" value="{{ user.username }}" required>
-
                         <p class="mb-1">{% translate 'Bio' %}</p>
                         {% if user.bio %}
                           <textarea class="form-control fw-light mb-2" name="bio">{{ user.bio }}</textarea>
@@ -105,8 +102,42 @@
           </div>
         </div>
       </div>
+
+      {% if posts %}
+        {% for post in posts %}
+          <div class="card mb-3">
+            <div class="card-header">
+              <div class="row">
+                <div class="col align-self-center">
+                  <img src="{{ profile.avatar.url }}" class="rounded-circle float-start me-2" width="20" height="20">
+                  {{ profile.first_name }} {{ profile.last_name }} - {{ post.date_created }}
+                </div>
+                <div class="col-1"><i class="bi bi-pin-angle" style="font-size: 1.2rem"></i></div>
+                <div class="col-1"><a href="{% url 'remove_post' post.pk %}" style="color: #333;"><i class="bi bi-trash" style="font-size: 1.2rem"></i></a></div>
+                <div class="col-1"><a href="{% url 'edit_post' post.pk %}" style="color: #333;"><i class="bi bi-pencil-square" style="font-size: 1.2rem"></i></a></div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text"><small class="text-muted">Last updated {{ post.date_updated|timesince }} ago</small></p>
+              <hr>
+              <div class="row">
+                <div class="col-6 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chat-right"></i> {% translate 'Comments' %}</button>
+                </div>
+                <div class="col-3 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-up"></i> {% translate 'Like' %}</button>
+                </div>
+                <div class="col-3 d-grid gap-2 align-self-center">
+                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-down"></i> {% translate 'Unlike' %}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
-    <div class="col-1"></div>
+    <div class="col-3"></div>
   </div>
 </div>
 {% endblock content %}
