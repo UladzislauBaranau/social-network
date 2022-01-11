@@ -154,10 +154,20 @@ def get_friends_list_view(request):
 def friend_details_view(request, pk):
     obj = get_object_or_404(Profile, pk=pk)
     posts = Post.objects.all().order_by('-date_created').filter(post_author=obj)
+    comment_form = CommentForm()
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.comment_author = request.user
+            new_comment.post = Post.objects.get(id=request.POST.get('post_id'))
+            new_comment.save()
 
     context = {
         'obj': obj,
         'posts': posts,
+        'comment': comment_form,
     }
     return render(request, 'profiles/friend_details.html', context)
 

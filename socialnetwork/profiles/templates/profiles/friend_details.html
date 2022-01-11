@@ -65,25 +65,63 @@
               <div class="row">
                 <div class="col align-self-center">
                   <img src="{{ obj.avatar.url }}" class="rounded-circle float-start me-2" width="20" height="20">
-                  {{ obj.first_name }} {{ obj.last_name }} - {{ post.date_created }}
+                  {{ obj.first_name }} {{ obj.last_name }}
+                  <span class="text-muted">{{ post.date_created|timesince }} ago</span>
                 </div>
               </div>
             </div>
             <div class="card-body">
               <p class="card-text">{{ post.content }}</p>
-              <p class="card-text"><small class="text-muted">Last updated {{ post.date_updated|timesince }} ago</small></p>
-              <hr>
+              <p class="card-text"><small class="text-muted">Last updated {{ post.date_updated }} </small></p>
+              <hr class="mb-2">
               <div class="row">
                 <div class="col-6 d-grid gap-2 align-self-center">
-                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-chat-right"></i> {% translate 'Comments' %}</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm">{% translate 'Comments' %}
+                    {% if post.n_comments %}
+                      {{ post.n_comments }}
+                    {% endif %}
+                  </button>
                 </div>
-                <div class="col-3 d-grid gap-2 align-self-center">
-                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-up"></i> {% translate 'Like' %}</button>
+                <div class="col-3 d-grid">
+                  <button type="button" class="btn btn-outline-secondary btn-sm">{% translate 'Like' %}</button>
                 </div>
-                <div class="col-3 d-grid gap-2 align-self-center">
-                  <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-hand-thumbs-down"></i> {% translate 'Unlike' %}</button>
+                <div class="col-3 d-grid">
+                  <button type="button" class="btn btn-outline-secondary btn-sm">{% translate 'Unlike' %}</button>
                 </div>
               </div>
+              <hr class="mt-2">
+
+              {% for c in post.comments.all %}
+                <div class="card mb-2">
+                  <div class="card-body">
+                    <div class="row">
+                        <div class="col align-self-center">
+                          <img src="{{ c.comment_author.avatar.url }}" class="rounded-circle float-start me-2" width="20" height="20">
+                          {{ c.comment_author.first_name }} {{ c.comment_author.last_name }}
+                          <span class="text-muted">{{ c.date_created|timesince }} ago</span>
+                        </div>
+                        {% ifequal c.comment_author.id request.user.id %}
+                          <div class="col-1"><a href="#" style="color: #333;"><i class="bi bi-trash" style="font-size: 1.2rem"></i></a></div>
+                        {% endifequal %}
+                    </div>
+                    <p class="card-text mt-2">{{ c.text_body }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+
+              <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value={{post.id}}>
+                <div class="row">
+                  <div class="col-9">
+                    <textarea class="form-control form-control-sm" name="text_body" style="height: 30px" placeholder="{% translate 'Write a comment...' %}"></textarea>
+                  </div>
+                  <div class="col-3 d-grid">
+                    <button type="submit" class="btn btn-primary btn-sm" name="submit_comment_form">{% translate 'Send' %}</button>
+                  </div>
+                </div>
+              </form>
+
             </div>
           </div>
         {% endfor %}
