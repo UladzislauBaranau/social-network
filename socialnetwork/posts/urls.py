@@ -6,4 +6,5 @@ urlpatterns = [
     path('', views.create_posts_view, name='posts'),
     path('edit_post/<int:pk>', views.EditPostView.as_view(), name='edit_post'),
     path('remove_post/<int:pk>', views.DeletePostView.as_view(), name='remove_post'),
+    path('remove_comment', views.delete_comment, name='remove_comment'),
 ]

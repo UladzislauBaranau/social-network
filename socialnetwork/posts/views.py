@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -8,7 +9,7 @@ from django.views.generic.edit import DeleteView, UpdateView
 from profiles.models import Profile
 
 from .forms import PostForm
-from .models import Post
+from .models import Comment, Post
 
 
 def create_posts_view(request):
@@ -61,3 +62,14 @@ class DeletePostView(LoginRequiredMixin, DeleteView):
         else:
             messages.warning(self.request, _('You need to be the author of the post to delete it'))
             return redirect('posts')
+
+
+@login_required
+def delete_comment(request):
+    if request.method == "POST":
+        pk = request.POST.get("comment_pk")
+        comment = Comment.objects.get(pk=pk)
+        comment.delete()
+
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('profiles/my_profile')
