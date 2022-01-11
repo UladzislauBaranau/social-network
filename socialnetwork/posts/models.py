@@ -15,6 +15,9 @@ class Post(models.Model):
     def __str__(self):
         return f"{self.post_author}: {self.content[:10]}"
 
+    def n_comments(self):
+        return self.comments.all().count()
+
 
 class Comment(models.Model):
     text_body = models.TextField(default=_("Your comment..."), max_length=200)
